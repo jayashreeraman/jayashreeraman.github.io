@@ -1,0 +1,15 @@
+Bonus if you’re familiar with:
+contributing to open source projects 
+notebook technologies - Jupyter, Zeppelin, IPython, ObservableHQ, etc. 
+big data technologies - Apache Spark, Flink, Hadoop, etc.
+containerized cloud-based environments - AWS, Google, Azure, Docker, etc. 
+analytics lifecycle - exploratory analysis, data engineering, ad hoc queries, reporting, deployment
+data science concepts - machine learning, R, stat packages (e.g. pandas, NumPy), feature engineering, predictions, model training and evaluation
+
+What do you know?
+You have significant experience delivering high-quality backend software with minimal technical guidance.
+You are highly skilled with Scala; you understand good design principles and stay current on best practices.
+You have hands-on experience with Jupyter kernel development, or strong knowledge of the underlying fundamentals such as sockets, messaging protocols, and interpreters.
+You have proficiency with scripting languages like Python and R.
+You possess a positive attitude, willingness to learn, and desire to grow. 
+
