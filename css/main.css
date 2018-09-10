@@ -355,6 +355,10 @@ body {width: 92%; margin: 0 auto} /* Center page without wrapper */
   clear: both;
 }
 
+li.padding{
+  padding-left: 10px;
+}
+
 /* Portfolio */
 .image{
   position: relative;
