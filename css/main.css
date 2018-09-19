@@ -355,6 +355,10 @@ body {width: 92%; margin: 0 auto} /* Center page without wrapper */
   clear: both;
 }
 
+.work-bullet li{
+  border-bottom: 1px solid #914d91;
+}
+
 li.padding{
   padding-left: 10px;
 }
