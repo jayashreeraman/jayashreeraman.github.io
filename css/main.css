@@ -793,7 +793,11 @@ html {
 }
 
 
-.carousel-inner { margin: auto; width: 40%; }
+.carousel-inner { margin: auto; width: 40%; 
+  -webkit-transition: 0.2s ease-in-out left;
+  -moz-transition: 0.2s ease-in-out left;
+  -o-transition: 0.2s ease-in-out left;
+  transition: 0.2s ease-in-out left;}
 .carousel-control 			 { width:  40%; }
 .carousel-control.left,
 .carousel-control.right {
