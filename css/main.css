@@ -429,8 +429,8 @@ li.padding{
   display:inline-block;
   margin: 0 10px 10px 0;    
   padding: 14px 20px;  
-  background: rgb(63, 69, 139);
-  color: #fff;
+  background: rgb(16, 17, 34);
+  color: rgb(231, 233, 240);
   font-weight: bold;
   font-size: 13px;
   font-family:'Open Sans', sans-serif;
@@ -447,9 +447,9 @@ li.padding{
 .btn-sandbox{
   display:inline-block;
   margin: 0 7px 7px 0;    
-   padding: 20px;  
-  background: rgb(63, 69, 139)x;
-  color: #fff;
+  padding: 20px;  
+  background: rgb(16, 17, 34);
+   color: rgb(231, 233, 240);
   font-weight: bold;
   font-size: 13px;
   font-family:'Open Sans', sans-serif;
