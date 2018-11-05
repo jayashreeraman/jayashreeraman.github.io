@@ -21,7 +21,7 @@ p, blockquote, q, pre, address, hr, code, samp, dl, ol, ul, form, table, fieldse
 
 /* TYPOGRAPHY */
 /* Composed to a scale of 12px, 14px, 16px, 18px, 21px, 24px, 36px, 48px, 60px and 72px */
-h1, h2, h3, h4, h5, h6 {font-family:'Open Sans', sans-serif;color:#444;}
+h1, h2, h3, h4, h5, h6 {font-family:'Lato', sans-serif;color:#444;}
 h1 {margin: 0; font-size: 3.75em; line-height: 1.2em; margin-bottom: 0.4em} /* 60px / 72px */
 h2 {margin: 0; font-size: 3em; line-height: 1em; margin-bottom: 0.5em} /* 48px / 48px */
 h3 {margin: 0; font-size: 2.25em; line-height: 1.3333333333333333333333333333333em; margin-bottom: 0.6667em} /* 36px / 48px */ 
@@ -128,7 +128,7 @@ body {width: 92%; margin: 0 auto} /* Center page without wrapper */
 /* Utility */
 .chromeframe {
   margin: 0.2em 0;
-  background: rgb(92, 66, 66);
+  background: rgb(243, 240, 240);
   color: #000;
   padding: 0.2em 0;
 }
@@ -143,7 +143,7 @@ body {width: 92%; margin: 0 auto} /* Center page without wrapper */
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-color: #8b918e;
+  background-color: #c7c8ca;
 }
 .clearfix:after { 
  content: "."; 
@@ -197,7 +197,7 @@ body {width: 92%; margin: 0 auto} /* Center page without wrapper */
   padding: 30px 20px;
   background: #fff;
   border: 1px solid #f1f1f1;
-  box-shadow: 0px 6px #321a99;
+  box-shadow: 0px 6px #333235;
   border-radius: 0px 0px 4px 4px;
 }
 
@@ -239,7 +239,7 @@ body {width: 92%; margin: 0 auto} /* Center page without wrapper */
 
 .tab a.active {
   padding-top: 10px;
-  color: #311988;
+  color: #070707;
 }
 .tab a i{
   font-size: 16px;
@@ -452,7 +452,8 @@ li.padding{
    color: rgb(231, 233, 240);
   font-weight: bold;
   font-size: 13px;
-  font-family:'Open Sans', sans-serif;
+  /*font-family:'Open Sans', sans-serif;*/
+  font-family: 'Lato', sans-serif;
   line-height: 1;
   *display:inline;
   *zoom:1;
@@ -568,16 +569,16 @@ li.padding{
   top: 0; left: 0; bottom: 0; right: 0;
   background-image: 
   -webkit-gradient(linear, 0 0, 100% 100%, 
-    color-stop(.25, rgba(255, 255, 255, .2)), 
+    color-stop(.25, rgba(236, 229, 229, 0.2)), 
     color-stop(.25, transparent), color-stop(.5, transparent), 
-    color-stop(.5, rgba(255, 255, 255, .2)), 
-    color-stop(.75, rgba(255, 255, 255, .2)), 
+    color-stop(.5, rgba(255, 255, 255, 0.966)), 
+    color-stop(.75, rgba(255, 255, 255, 0.945)), 
     color-stop(.75, transparent), to(transparent)
     );
   background-image: 
   -moz-linear-gradient(
     -45deg, 
-    rgba(255, 255, 255, .2) 25%, 
+    rgba(224, 220, 220, 0.2) 25%, 
     transparent 25%, 
     transparent 50%, 
     rgba(255, 255, 255, .2) 50%, 
