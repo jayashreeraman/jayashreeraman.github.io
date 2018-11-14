@@ -1,0 +1,34 @@
+{
+  "paths": [
+    {
+      "type": "dir",
+      "name": "UA",
+      "children": [
+        {
+          "type": "file",
+          "value": "UA/test.md"
+        },
+        {
+          "type": "file",
+          "value": "UA/test2.md"
+        }
+      ]
+    }
+  ],
+  "contents": [
+    {
+      "path": "UA/test.md",
+      "url": "UA/test.html",
+      "content": "# Hola\r\n## This is a test run \r\n# Usage: markdown-folder-to-html sandbox\r\n\r\n- Unos\r\n- Dos\r\n- Tres",
+      "html": "<h1>Hola</h1>\n<h2>This is a test run</h2>\n<h1>Usage: markdown-folder-to-html sandbox</h1>\n<ul>\n<li>Unos</li>\n<li>Dos</li>\n<li>Tres</li>\n</ul>\n",
+      "id": 0
+    },
+    {
+      "path": "UA/test2.md",
+      "url": "UA/test2.html",
+      "content": "# Hola\r\n## This is a test run \r\n# Usage: markdown-folder-to-html sandbox\r\n\r\n- Unos\r\n- Dos\r\n- Tres",
+      "html": "<h1>Hola</h1>\n<h2>This is a test run</h2>\n<h1>Usage: markdown-folder-to-html sandbox</h1>\n<ul>\n<li>Unos</li>\n<li>Dos</li>\n<li>Tres</li>\n</ul>\n",
+      "id": 1
+    }
+  ]
+}
