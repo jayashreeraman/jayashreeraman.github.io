@@ -7,3 +7,11 @@
 #### Integrating markdown with my HTML website was the magic trick I needed, and Joaquin's neat little package ![https://github.com/joakin/markdown-folder-to-html] helped me out of the rabbithole. Detailed instructions here [https://www.npmjs.com/package/markdown-to-html].
 
 #### Highly recommend for people who tend to get overwhelmed by the tiny details but want to look at the big picture.
+
+
+```
+markdown-folder-to-html sandbox
+
+move _sandbox blog
+
+```

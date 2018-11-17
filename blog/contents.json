@@ -2,6 +2,26 @@
   "paths": [
     {
       "type": "dir",
+      "name": "Administrivia",
+      "children": [
+        {
+          "type": "file",
+          "value": "Administrivia/md_to_html.md"
+        }
+      ]
+    },
+    {
+      "type": "dir",
+      "name": "Learning",
+      "children": [
+        {
+          "type": "file",
+          "value": "Learning/how_to_read.md"
+        }
+      ]
+    },
+    {
+      "type": "dir",
       "name": "UA",
       "children": [
         {
@@ -17,18 +37,32 @@
   ],
   "contents": [
     {
+      "path": "Administrivia/md_to_html.md",
+      "url": "Administrivia/md_to_html.html",
+      "content": "## Markdown to HTML\r\n\r\n#### For a long time, I procrastinated on writing about things I cared about, just because of the huge overhead of formatting HTML documents and making sure all the <p> tags and <a> tags were where they were supposed to be. It kinda interfered with my free flow of thoughts when writing, posing more of a bother to (or than) writer's block.\r\n\r\n#### Markdown was relatively hassle-free and I enjoyed the luxury of not having to fret about the layout, and still have a fairly pretty looking output.\r\n\r\n#### Integrating markdown with my HTML website was the magic trick I needed, and Joaquin's neat little package ![https://github.com/joakin/markdown-folder-to-html] helped me out of the rabbithole. Detailed instructions here [https://www.npmjs.com/package/markdown-to-html].\r\n\r\n#### Highly recommend for people who tend to get overwhelmed by the tiny details but want to look at the big picture.",
+      "html": "<h2>Markdown to HTML</h2>\n<h4>For a long time, I procrastinated on writing about things I cared about, just because of the huge overhead of formatting HTML documents and making sure all the <p> tags and <a> tags were where they were supposed to be. It kinda interfered with my free flow of thoughts when writing, posing more of a bother to (or than) writer’s block.</h4>\n<h4>Markdown was relatively hassle-free and I enjoyed the luxury of not having to fret about the layout, and still have a fairly pretty looking output.</h4>\n<h4>Integrating markdown with my HTML website was the magic trick I needed, and Joaquin’s neat little package ![<a href=\"https://github.com/joakin/markdown-folder-to-html\">https://github.com/joakin/markdown-folder-to-html</a>] helped me out of the rabbithole. Detailed instructions here [<a href=\"https://www.npmjs.com/package/markdown-to-html\">https://www.npmjs.com/package/markdown-to-html</a>].</h4>\n<h4>Highly recommend for people who tend to get overwhelmed by the tiny details but want to look at the big picture.</h4>\n",
+      "id": 0
+    },
+    {
+      "path": "Learning/how_to_read.md",
+      "url": "Learning/how_to_read.html",
+      "content": "# How To Read (aka Strategies to reduce Grad/Adult Life Struggles)\r\n\r\n### As someone who started (or transitioned) to reading more non-fiction than fiction, I have been struggling with not being able to quantify the essence of all the papers and non-fiction books I've been reading off late. With non-fiction, you don't have to stay committed to serial page-turning, and for a knowledge (or information) hungry noob like yours truly, it is the equivalent of a kid let loose in a candy store. \r\n\r\n### I have been struggling to have a more disciplined approach towards non-fiction and academic papers, and this book [http://utminers.utep.edu/trcurry/howtoread.pdf] by Paul N. Edwards, from the University of Michigan's School of Information is a great help. \r\n\r\n### Some excerpts (notes to myself):\r\n\r\n- How can you learn the most from a book when you are reading for information rather than for pleasure?\r\n- NEVER read a non-fiction book from the beginning to the end.\r\n- Your time is LIMITED\r\n- *Remember and record* the main points.\r\n- Figure out **why** you are reading this book/paper\r\n- Four things: who is the author, what is the **argument**, what is the **evidence**, what is the **conclusion**?\r\n- Imagine that you are going to review the book for a magazine\r\n- Read it **three** times: Overview (discovery) 1/10th the total time, Detail (understanding) - 6/10ths the total time, Notes (recall) - 3/10ths the total time\r\n- The **Hourglass Information Structure**\r\n- Personal Text Markup Language\r\n- Knowing who wrote a book helps you judge its quality and understand its full significance. __Check the acknowledgements and bibliography always__\r\n- A book is always partly a response to other writers\r\n- Use your **unconscious mind**: several short sessions rather than one long marathon\r\n- Don't just contemplate privately, discuss it with others, bring it up in classes, write about it\r\n\r\n",
+      "html": "<h1>How To Read (aka Strategies to reduce Grad/Adult Life Struggles)</h1>\n<h3>As someone who started (or transitioned) to reading more non-fiction than fiction, I have been struggling with not being able to quantify the essence of all the papers and non-fiction books I’ve been reading off late. With non-fiction, you don’t have to stay committed to serial page-turning, and for a knowledge (or information) hungry noob like yours truly, it is the equivalent of a kid let loose in a candy store.</h3>\n<h3>I have been struggling to have a more disciplined approach towards non-fiction and academic papers, and this book [<a href=\"http://utminers.utep.edu/trcurry/howtoread.pdf\">http://utminers.utep.edu/trcurry/howtoread.pdf</a>] by Paul N. Edwards, from the University of Michigan’s School of Information is a great help.</h3>\n<h3>Some excerpts (notes to myself):</h3>\n<ul>\n<li>How can you learn the most from a book when you are reading for information rather than for pleasure?</li>\n<li>NEVER read a non-fiction book from the beginning to the end.</li>\n<li>Your time is LIMITED</li>\n<li><em>Remember and record</em> the main points.</li>\n<li>Figure out <strong>why</strong> you are reading this book/paper</li>\n<li>Four things: who is the author, what is the <strong>argument</strong>, what is the <strong>evidence</strong>, what is the <strong>conclusion</strong>?</li>\n<li>Imagine that you are going to review the book for a magazine</li>\n<li>Read it <strong>three</strong> times: Overview (discovery) 1/10th the total time, Detail (understanding) - 6/10ths the total time, Notes (recall) - 3/10ths the total time</li>\n<li>The <strong>Hourglass Information Structure</strong></li>\n<li>Personal Text Markup Language</li>\n<li>Knowing who wrote a book helps you judge its quality and understand its full significance. <strong>Check the acknowledgements and bibliography always</strong></li>\n<li>A book is always partly a response to other writers</li>\n<li>Use your <strong>unconscious mind</strong>: several short sessions rather than one long marathon</li>\n<li>Don’t just contemplate privately, discuss it with others, bring it up in classes, write about it</li>\n</ul>\n",
+      "id": 1
+    },
+    {
       "path": "UA/test.md",
       "url": "UA/test.html",
       "content": "# Hola\r\n## This is a test run \r\n# Usage: markdown-folder-to-html sandbox\r\n\r\n- Unos\r\n- Dos\r\n- Tres",
       "html": "<h1>Hola</h1>\n<h2>This is a test run</h2>\n<h1>Usage: markdown-folder-to-html sandbox</h1>\n<ul>\n<li>Unos</li>\n<li>Dos</li>\n<li>Tres</li>\n</ul>\n",
-      "id": 0
+      "id": 2
     },
     {
       "path": "UA/test2.md",
       "url": "UA/test2.html",
       "content": "# Hola\r\n## This is a test run \r\n# Usage: markdown-folder-to-html sandbox\r\n\r\n- Unos\r\n- Dos\r\n- Tres",
       "html": "<h1>Hola</h1>\n<h2>This is a test run</h2>\n<h1>Usage: markdown-folder-to-html sandbox</h1>\n<ul>\n<li>Unos</li>\n<li>Dos</li>\n<li>Tres</li>\n</ul>\n",
-      "id": 1
+      "id": 3
     }
   ]
 }
