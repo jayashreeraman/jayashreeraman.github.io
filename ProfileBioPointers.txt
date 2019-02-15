@@ -11,5 +11,11 @@ You have significant experience delivering high-quality backend software with mi
 You are highly skilled with Scala; you understand good design principles and stay current on best practices.
 You have hands-on experience with Jupyter kernel development, or strong knowledge of the underlying fundamentals such as sockets, messaging protocols, and interpreters.
 You have proficiency with scripting languages like Python and R.
-You possess a positive attitude, willingness to learn, and desire to grow. 
+You possess a positive attitude, willingness to learn, and desire to grow.
+
+
+ Design complex ETL pipelines, from logging to delivering data products to end users 
+Expert-level knowledge of Microsoft SQL Server
+·        Experience building ETL scripts
+Create complex SQL queries to deliver reporting/data analytics solutions.
 

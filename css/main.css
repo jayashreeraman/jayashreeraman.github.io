@@ -890,3 +890,42 @@ html {
   }
   
 }
+
+
+.rowSB {
+  margin: 8px -16px;
+}
+
+/* Add padding BETWEEN each column (if you want) */
+.rowSB,
+.rowSB > .columnSB {
+  padding: 8px;
+}
+
+/* Create four equal columns that floats next to each other */
+.columnSB {
+  float: left;
+  width: 25%;
+}
+
+/* Clear floats after rows */ 
+.rowSB:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Content */
+.contentSB {
+  background-color: white;
+  padding: 10px;
+  display:block;
+  margin-left: auto;
+  margin-right: auto;}
+
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media screen and (max-width: 900px) {
+  .columnSB {
+    width: 50%;
+  }
+}
