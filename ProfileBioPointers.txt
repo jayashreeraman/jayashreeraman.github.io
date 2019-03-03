@@ -1,4 +1,4 @@
-Bonus if you’re familiar with:
+Bonus if youï¿½re familiar with:
 contributing to open source projects 
 notebook technologies - Jupyter, Zeppelin, IPython, ObservableHQ, etc. 
 big data technologies - Apache Spark, Flink, Hadoop, etc.
@@ -16,6 +16,51 @@ You possess a positive attitude, willingness to learn, and desire to grow.
 
  Design complex ETL pipelines, from logging to delivering data products to end users 
 Expert-level knowledge of Microsoft SQL Server
-·        Experience building ETL scripts
+ï¿½        Experience building ETL scripts
 Create complex SQL queries to deliver reporting/data analytics solutions.
 
+Redshift Stories:
+
+##########################################################################################################
+I have a dead simple query: select count(*) from some_table running on an Amazon Redshift database.
+It takes several seconds to complete, and returns 0.
+
+The plan:
+XN Aggregate  (cost=0.88..0.88 rows=1 width=0)
+  ->  XN Seq Scan on account  (cost=0.00..0.70 rows=70 width=0)
+What may be the cause? Is this e.g. because some_table used to be large, then all records were deleted, 
+but vacuuming did not run yet?
+
+(I did not create the DB or the table in question, and have limited privileges in it.)
+
+Have you tried count(col1) instead of count(*)? Test it on columns with different data types 
+and see if that makes a difference. Optimizations are different between strings and numeric types. 
+If the table is stored in columnar format, it may pick a column with a type that isn't optimized. 
+Vacuuming should have minimal impact unless you have a really big pile of data waiting for vacuum.
+
+##########################################################################################################
+
+Median absolute deviation for time series outlier detection in Amazon Redshift
+I believe this is very doable with a CTE or subquery!
+
+MAD is can be calculated by composing several Redshift functions:
+
+the median of a list of values
+absolute value of the difference between each value and that median
+the median of those values
+I wrote this in the form of:
+
+WITH
+medians AS (
+  SELECT
+    t.values,
+    MEDIAN(t.values) OVER () as median_value,
+    ABS(t.values-MEDIAN(t.values) OVER ()) AS absolute_deviation
+  FROM table AS t
+  GROUP BY t.values
+)
+SELECT
+  MEDIAN(absolute_deviation) OVER () AS median_absolute_deviation
+FROM medians
+
+##########################################################################################################

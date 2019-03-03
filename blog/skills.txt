@@ -1,0 +1,69 @@
+Python(pandas, numpy, scipy, sklearn, matplotlib, seaborn),
+R (dplyr, tidyr, ggplot2),
+SQL,
+Java,
+  	•	D3/Tableau ,
+•	SQL Server/ SSIS,
+•	PostGreSQL/MySQL,
+•	Jupyter/Anaconda,
+•	RStudio,
+•	Hive/ Spark	,
+•	Linear Regression,
+•	Gradient Descent,
+•	SVM/PCA/kNN,
+•	Natural Language Processing,
+•	A/B Testing	•	Google Cloud Platform: Hadoop, Spark, Hive,
+•	Amazon Web Services: Amazon Redshift and S3,
+•	Google Analytics,
+
+
+
+
+Test Analytics : Defect Density/Feature, Defect leakage, Defect Removal Efficiency
+Defect Severity Index, Test Design Coverage, Test Cycle Efficiency, Automated Test Efficiency,
+ Critical Defects,
+Execution Time
+
+36 teams, 5-7 projects/team
+200 projects in total, with tests run daily/weekly/monthly
+Performance Tuning
+
+Couterparty, Mktg client, Underlying, Currency, Country of Trade
+Place a deal, it was matched for price, and details were made available after the deal had been booked
+BI system had to display the prices in realtime, and we worked on integrating new features as they came up
+and made sure the data was accurate
+About 200GB at the start, and it grew with every cycle --> decided to migrate to Hadoop
+Py scripts to automate the workflows
+
+Data Wrangling, unstructured to structured, data analysis using pandas, numpy, and applied data science and ML 
+using python and R packages
+
+
+ How do I answer the most challenging data analysis project that I have done?
+
+a. If you had a good approach for your project then It would mean that you know how to break down data 
+analysis problems and solve them. So solving a basic case study shouldn't be difficult for you and I 
+could check box #1!
+
+b. If you can communicate the "complexity" of the project effectively then I think I would check the 
+box #2: communication skills!
+
+c. Since you solved a challenging project, I assume that you picked up some tech skills 
+(Bonus points if you picked up new tech skills while solving this problem). 
+Just let me know what tech you used to solve the problem so that I can ask questions around that -- 
+if you are able to answer them then I would check box #3!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
