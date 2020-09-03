@@ -6,17 +6,35 @@
       "children": [
         {
           "type": "file",
-          "value": "Administrivia/md_to_html.md"
+          "value": "administrivia/md_to_html.md"
         }
       ]
     },
     {
       "type": "dir",
-      "name": "Learning",
+      "name": "learning",
       "children": [
         {
           "type": "file",
-          "value": "Learning/how_to_read.md"
+          "value": "learning/how_to_read.md"
+        }
+      ]
+    },
+    {
+      "type": "dir",
+      "name": "Reading",
+      "children": [
+        {
+          "type": "file",
+          "value": "reading/cities_for_people.md"
+        },
+        {
+          "type": "file",
+          "value": "reading/order_without_design.md"
+        },
+        {
+          "type": "file",
+          "value": "reading/working_in_public.md"
         }
       ]
     },
