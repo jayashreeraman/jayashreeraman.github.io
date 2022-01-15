@@ -143,7 +143,7 @@ body {width: 92%; margin: 0 auto} /* Center page without wrapper */
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  background-color: #c7c8ca;
+  background-color: #f0ab2b;
 }
 .clearfix:after { 
  content: "."; 
