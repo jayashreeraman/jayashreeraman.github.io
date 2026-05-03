@@ -51,18 +51,18 @@ jobs:
         run: |
           echo "## Files in blog/posts after conversion:" >> $GITHUB_STEP_SUMMARY
           find blog/posts -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
-          
+
       - name: Commit converted files
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}it diff --quiet --cached; then
-        run: |MMARY
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
           git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"L"
-          git add blog/posts/**/*.htmlgit push origin main
-          else            echo "✓ Successfully pushed converted files" >> $GITHUB_STEP_SUMMARY
-
-
-
-
-
-          fi            echo "✓ Successfully pushed converted files"            git push            git commit -m "Convert markdown files to HTML"          fi
+          git config --local user.name "GitHub Action"
+          git add blog/posts/**/*.html
+          if git diff --quiet --cached; then
+            echo "No changes to commit" >> $GITHUB_STEP_SUMMARY
+          else
+            git commit -m "Convert markdown files to HTML"
+            git push origin main
+            echo "✓ Successfully pushed converted files" >> $GITHUB_STEP_SUMMARY
+          fi
