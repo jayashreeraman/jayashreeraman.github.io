@@ -1,0 +1,35 @@
+{
+  "navigation": [
+    {
+      "section": "Administrivia",
+      "items": [
+        {
+          "title": "md to html",
+          "url": "../Administrivia/md_to_html.html"
+        }
+      ]
+    },
+    {
+      "section": "Learning",
+      "items": [
+        {
+          "title": "how to read",
+          "url": "../Learning/how_to_read.html"
+        }
+      ]
+    },
+    {
+      "section": "UA",
+      "items": [
+        {
+          "title": "test",
+          "url": "test.html"
+        },
+        {
+          "title": "test2",
+          "url": "test2.html"
+        }
+      ]
+    }
+  ]
+}

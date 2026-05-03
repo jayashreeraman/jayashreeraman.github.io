@@ -1,0 +1,46 @@
+name: Convert Markdown to HTML
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'blog/posts/**/*.md'
+      - '.github/workflows/markdown-to-html.yml'
+
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install markdown-folder-to-html
+        run: npm install -g markdown-folder-to-html
+
+      - name: Convert markdown files to HTML
+        run: |
+          for dir in blog/posts/*/; do
+            if [ -d "$dir" ]; then
+              echo "Converting markdown in $dir"
+              mfth "$dir" "$dir"
+            fi
+          done
+
+      - name: Commit converted files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add blog/posts/**/*.html
+          if git diff --quiet --cached; then
+            echo "No changes to commit"
+          else
+            git commit -m "Convert markdown files to HTML"
+            git push
+          fi

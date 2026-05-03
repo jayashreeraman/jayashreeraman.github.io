@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>Urban - Blog Posts</title>
+  <link rel="stylesheet" href="../../../css/styles.css">
+</head>
+<body>
+  <div id="layout">
+    <a href="#menu" id="menuLink" class="menu-link">
+      <span></span>
+    </a>
+    <nav id="menu">
+      <ul>
+        <li class="heading"><span>Main</span></li>
+        <ul>
+          <li><a href="../../../index.html">Home</a></li>
+          <li><a href="../../index.html">Blog</a></li>
+        </ul>
+      </ul>
+    </nav>
+    <article id="main" class="content">
+      <h1>Urban Posts</h1>
+      <p>Posts related to Urban Planning, Urban Analytics, and Urban Policy.</p>
+
+      <div class="view-toggle">
+        <button id="listViewBtn" class="view-btn active" data-view="list">📋 List View</button>
+        <button id="cardViewBtn" class="view-btn" data-view="card">🗂️ Card View</button>
+      </div>
+
+      <div id="postsContainer" class="posts-list"></div>
+    </article>
+  </div>
+  <script src="../../../js/menu.js"></script>
+  <script>
+    window.postsJsonPath = '../../posts.json';
+  </script>
+  <script src="../../../js/blog.js"></script>
+  <script>
+    async function loadUrbanPosts() {
+      try {
+        const response = await fetch('../../posts.json');
+        const data = await response.json();
+        posts = data.posts.filter(post => 
+          post.category === 'Urban Planning' || 
+          post.category === 'Urban Analytics' || 
+          post.category === 'Urban Policy'
+        );
+        renderPosts();
+      } catch (error) {
+        console.error('Error loading posts:', error);
+        posts = fallbackPosts.filter(post => 
+          post.category === 'Urban Planning' || 
+          post.category === 'Urban Analytics' || 
+          post.category === 'Urban Policy'
+        );
+        renderPosts();
+      }
+    }
+    document.addEventListener('DOMContentLoaded', loadUrbanPosts);
+  </script>
+</body>
+</html>
+    document.addEventListener('DOMContentLoaded', loadUrbanPosts);
+  </script>
+</body>
+</html>
