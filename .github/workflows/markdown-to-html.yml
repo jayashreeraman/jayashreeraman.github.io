@@ -26,12 +26,26 @@ jobs:
 
       - name: Convert markdown files to HTML
         run: |
+          echo "Starting markdown to HTML conversion..."
           for dir in blog/posts/*/; do
             if [ -d "$dir" ]; then
               echo "Converting markdown in $dir"
-              mfth "$dir" "$dir"
+              mfth "$dir" "$dir" || exit 1
+              echo "✓ Successfully converted $dir"
             fi
           done
+          echo "Conversion complete!"
+
+      - name: Check for converted files
+        run: |
+          echo "## Converted Files" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if find blog/posts -name "*.html" -type f | grep -q .; then
+            echo "✓ HTML files generated:" >> $GITHUB_STEP_SUMMARY
+            find blog/posts -name "*.html" -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✗ No HTML files found" >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Commit converted files
         run: |
@@ -43,4 +57,5 @@ jobs:
           else
             git commit -m "Convert markdown files to HTML"
             git push
+            echo "✓ Successfully pushed converted files"
           fi
