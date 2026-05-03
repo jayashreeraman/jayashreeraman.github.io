@@ -21,48 +21,100 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Install markdown-folder-to-html
-        run: npm install -g markdown-folder-to-html
+      - name: Install markdown packages
+        run: npm install -g marked
 
       - name: Convert markdown files to HTML
         run: |
-          echo "Starting markdown to HTML conversion..."
-          for dir in blog/posts/*/; do
-            if [ -d "$dir" ]; then
-              echo "Converting markdown in $dir"
-              mfth "$dir" "$dir" || exit 1
-              echo "✓ Successfully converted $dir"
-            fi
-          done
-          echo "Conversion complete!"
+          node << 'EOF'
+          const fs = require('fs');
+          const path = require('path');
+          const { marked } = require('marked');
 
-      - name: Check for converted files
+          function convertMarkdownToHtml(mdFilePath) {
+            const markdown = fs.readFileSync(mdFilePath, 'utf-8');
+            const html = marked.parse(markdown);
+            
+            const htmlFilePath = mdFilePath.replace('.md', '.html');
+            
+            const template = `<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <title>Blog Post</title>
+  <link rel="stylesheet" href="../../../css/styles.css">
+</head>
+<body>
+  <div id="layout">
+    <a href="#menu" id="menuLink" class="menu-link">
+      <span></span>
+    </a>
+    <nav id="menu">
+      <ul>
+        <li class="heading"><span>Main</span></li>
+        <ul>
+          <li><a href="../../../index.html">Home</a></li>
+          <li><a href="../../index.html">Blog</a></li>
+        </ul>
+      </ul>
+    </nav>
+    <article id="main" class="content">
+      ${html}
+      <p><a href="../../index.html">← Back to Blog</a></p>
+    </article>
+  </div>
+  <script src="../../../js/menu.js"></script>
+</body>
+</html>`;
+            
+            fs.writeFileSync(htmlFilePath, template);
+            console.log(`✓ Converted ${mdFilePath} → ${htmlFilePath}`);
+          }
+
+          const postsDir = 'blog/posts';
+          
+          function processDirectory(dir) {
+            const files = fs.readdirSync(dir);
+            files.forEach(file => {
+              const fullPath = path.join(dir, file);
+              const stat = fs.statSync(fullPath);
+              
+              if (stat.isDirectory()) {
+                processDirectory(fullPath);
+              } else if (file.endsWith('.md')) {
+                convertMarkdownToHtml(fullPath);
+              }
+            });
+          }
+
+          console.log('Starting markdown to HTML conversion...');
+          processDirectory(postsDir);
+          console.log('Conversion complete!');
+          EOF
+
+      - name: Verify HTML files created
         run: |
-          echo "## Converted Files" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## HTML Files Generated:" >> $GITHUB_STEP_SUMMARY
           if find blog/posts -name "*.html" -type f | grep -q .; then
-            echo "✓ HTML files generated:" >> $GITHUB_STEP_SUMMARY
+            echo "✓ HTML files found:" >> $GITHUB_STEP_SUMMARY
             find blog/posts -name "*.html" -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
           else
-            echo "✗ No HTML files found" >> $GITHUB_STEP_SUMMARY
+            echo "✗ No HTML files generated" >> $GITHUB_STEP_SUMMARY
           fi
 
-      - name: Debug - List all files in blog/posts
-        run: |
-          echo "## Files in blog/posts after conversion:" >> $GITHUB_STEP_SUMMARY
-          find blog/posts -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
-
-      - name: Commit converted files
+      - name: Commit and push converted files
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add blog/posts/**/*.html
+          git add blog/posts/**/*.html || true
+          
           if git diff --quiet --cached; then
-            echo "No changes to commit" >> $GITHUB_STEP_SUMMARY
+            echo "ℹ No HTML changes to commit" >> $GITHUB_STEP_SUMMARY
           else
-            git commit -m "Convert markdown files to HTML"
+            git commit -m "Convert markdown files to HTML [skip ci]"
             git push origin main
-            echo "✓ Successfully pushed converted files" >> $GITHUB_STEP_SUMMARY
+            echo "✓ Successfully pushed converted HTML files" >> $GITHUB_STEP_SUMMARY
           fi
