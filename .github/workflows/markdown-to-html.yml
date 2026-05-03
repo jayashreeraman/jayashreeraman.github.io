@@ -25,8 +25,7 @@ jobs:
         run: npm install -g marked
 
       - name: Convert markdown files to HTML
-        run: |
-          node .github/scripts/markdown-to-html.js
+        run: node .github/scripts/markdown-to-html.js
 
       - name: Verify HTML files created
         run: |
@@ -45,12 +44,13 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add blog/posts/**/*.html || true
-          
           if git diff --quiet --cached; then
             echo "ℹ No HTML changes to commit" >> $GITHUB_STEP_SUMMARY
           else
             git commit -m "Convert markdown files to HTML [skip ci]"
             git push origin main
+            echo "✓ Successfully pushed converted HTML files" >> $GITHUB_STEP_SUMMARY
+          fi
             echo "✓ Successfully pushed converted HTML files" >> $GITHUB_STEP_SUMMARY
           fi
         <ul>
