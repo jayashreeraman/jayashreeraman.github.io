@@ -26,33 +26,33 @@ jobs:
 
       - name: Convert markdown files to HTML
         run: |
-          node << 'EOF'
-          const fs = require('fs');
-          const path = require('path');
-          const { marked } = require('marked');
+          node .github/scripts/markdown-to-html.js
 
-          function convertMarkdownToHtml(mdFilePath) {
-            const markdown = fs.readFileSync(mdFilePath, 'utf-8');
-            const html = marked.parse(markdown);
-            
-            const htmlFilePath = mdFilePath.replace('.md', '.html');
-            
-            const template = `<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <title>Blog Post</title>
-  <link rel="stylesheet" href="../../../css/styles.css">
-</head>
-<body>
-  <div id="layout">
-    <a href="#menu" id="menuLink" class="menu-link">
-      <span></span>
-    </a>
-    <nav id="menu">
-      <ul>
-        <li class="heading"><span>Main</span></li>
+      - name: Verify HTML files created
+        run: |
+          echo "## HTML Files Generated:" >> $GITHUB_STEP_SUMMARY
+          if find blog/posts -name "*.html" -type f | grep -q .; then
+            echo "✓ HTML files found:" >> $GITHUB_STEP_SUMMARY
+            find blog/posts -name "*.html" -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✗ No HTML files generated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Commit and push converted files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add blog/posts/**/*.html || true
+          
+          if git diff --quiet --cached; then
+            echo "ℹ No HTML changes to commit" >> $GITHUB_STEP_SUMMARY
+          else
+            git commit -m "Convert markdown files to HTML [skip ci]"
+            git push origin main
+            echo "✓ Successfully pushed converted HTML files" >> $GITHUB_STEP_SUMMARY
+          fi
         <ul>
           <li><a href="../../../index.html">Home</a></li>
           <li><a href="../../index.html">Blog</a></li>
