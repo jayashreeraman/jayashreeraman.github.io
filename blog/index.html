@@ -50,20 +50,8 @@
   </div>
   <script src="../js/menu.js"></script>
   <script>
-    // Set base path for posts.json
-    window.postsJsonPath = './posts.json';
-  </script>
-  <script src="../js/blog.js"></script>
-</body>
-</html>
-        </aside>
-      </div>
-    </article>
-  </div>
-  <script src="../js/menu.js"></script>
-  <script>
-    // Set base path for posts.json
-    window.postsJsonPath = './posts.json';
+    // Set base path for posts.json (with cache-buster to ensure fresh links)
+    window.postsJsonPath = './posts.json?v=' + new Date().getTime();
   </script>
   <script src="../js/blog.js"></script>
 </body>
