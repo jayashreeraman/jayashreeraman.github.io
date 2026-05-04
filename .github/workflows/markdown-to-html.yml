@@ -45,7 +45,10 @@ jobs:
                 fs.mkdirSync(htmlDir, { recursive: true });
               }
               
-              const template = '<!DOCTYPE html>\n<html>\n<head>\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <meta charset="utf-8">\n  <title>Blog Post</title>\n  <link rel="stylesheet" href="../../../../css/styles.css">\n</head>\n<body>\n  <div id="layout">\n    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>\n    <nav id="menu">\n      <ul>\n        <li class="heading"><span>Main</span></li>\n        <ul>\n          <li><a href="../../../../index.html">Home</a></li>\n          <li><a href="../../../index.html">Blog</a></li>\n        </ul>\n      </ul>\n    </nav>\n    <article id="main" class="content">\n      ' + html + '\n      <p><a href="../../../index.html">← Back to Blog</a></p>\n    </article>\n  </div>\n  <script src="../../../../js/menu.js"><\/script>\n</body>\n</html>';
+              const relativeToRoot = path.relative(htmlDir, '.').replace(/\\/g, '/');
+              const relativeToBlog = path.relative(htmlDir, 'blog').replace(/\\/g, '/');
+              
+              const template = '<!DOCTYPE html>\n<html>\n<head>\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <meta charset="utf-8">\n  <title>Blog Post</title>\n  <link rel="stylesheet" href="' + relativeToRoot + '/css/styles.css">\n</head>\n<body>\n  <div id="layout">\n    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>\n    <nav id="menu">\n      <ul>\n        <li class="heading"><span>Main</span></li>\n        <ul>\n          <li><a href="' + relativeToRoot + '/index.html">Home</a></li>\n          <li><a href="' + relativeToBlog + '/index.html">Blog</a></li>\n        </ul>\n      </ul>\n    </nav>\n    <article id="main" class="content">\n      ' + html + '\n      <p><a href="' + relativeToBlog + '/index.html">← Back to Blog</a></p>\n    </article>\n  </div>\n  <script src="' + relativeToRoot + '/js/menu.js"><\/script>\n</body>\n</html>';
               
               fs.writeFileSync(htmlFilePath, template);
               console.log(`✓ Converted ${mdFilePath} → ${htmlFilePath}`);

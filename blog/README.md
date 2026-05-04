@@ -26,7 +26,7 @@ Open `blog/posts.json` and add a new entry to the `posts` array:
 {
   "title": "Your Post Title",
   "category": "Category Name",
-  "url": "./Category/filename.html",
+  "url": "./posts/html/Category/j-filename.html",
   "date": "YYYY-MM-DD",
   "tags": ["tag1", "tag2", "tag3"],
   "excerpt": "A brief description of your post (2-3 sentences)."
@@ -39,7 +39,7 @@ Open `blog/posts.json` and add a new entry to the `posts` array:
 |-------|-------------|---------|
 | `title` | Post title | "Urban Planning Basics" |
 | `category` | Category name (Administrivia, Learning, Urban Planning, Urban Analytics, Urban Policy) | "Urban Planning" |
-| `url` | Relative path to the HTML file | "./Urban/urban_planning.html" |
+| `url` | Relative path to the HTML file | "./posts/html/urban/j-urban_planning.html" |
 | `date` | Publication date in YYYY-MM-DD format | "2024-01-15" |
 | `tags` | Array of relevant tags | ["planning", "urban", "development"] |
 | `excerpt` | Brief preview of the post content | "Introduction to fundamental..." |
@@ -56,7 +56,7 @@ The post will automatically appear on the blog homepage in both list and card vi
 {
   "title": "Zoning Laws in Modern Cities",
   "category": "Urban Policy",
-  "url": "./Urban/new_policy_post.html",
+  "url": "./posts/html/urban/j-new_policy_post.html",
   "date": "2024-01-20",
   "tags": ["zoning", "policy", "regulation"],
   "excerpt": "An exploration of zoning laws and their impact on urban development."
@@ -92,13 +92,13 @@ blog/
 ├── index.html              # Main blog page
 ├── posts.json              # Post metadata (edit this to add posts)
 ├── README.md               # This file
-├── Administrivia/
-│   └── md_to_html.html
-├── Learning/
-│   └── how_to_read.html
-└── Urban/
-    ├── index.html
-    ├── urban_planning.html
-    ├── urban_analytics.html
-    └── urban_policy.html
+└── posts/
+    ├── md/
+    │   ├── administrivia/
+    │   ├── learning/
+    │   └── urban/
+    └── html/
+        ├── administrivia/
+        ├── learning/
+        └── urban/
 ```

@@ -24,4 +24,3 @@ title: Document Center
 - A book is always partly a response to other writers
 - Use your **unconscious mind**: several short sessions rather than one long marathon
 - Don't just contemplate privately, discuss it with others, bring it up in classes, write about it
-
