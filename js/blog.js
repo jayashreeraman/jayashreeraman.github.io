@@ -6,7 +6,7 @@ const fallbackPosts = [
   {
     "title": "md to html",
     "category": "Administrivia",
-    "url": "./Administrivia/md_to_html.html",
+    "url": "./posts/html/administrivia/j-md_to_html.html",
     "date": "2024-01-15",
     "tags": ["markdown", "html", "tools"],
     "excerpt": "A guide on converting markdown files to HTML format."
@@ -14,7 +14,7 @@ const fallbackPosts = [
   {
     "title": "how to read",
     "category": "Learning",
-    "url": "./Learning/how_to_read.html",
+    "url": "./posts/html/learning/j-how_to_read.html",
     "date": "2024-01-10",
     "tags": ["reading", "learning", "tips"],
     "excerpt": "Tips and strategies for effective reading and comprehension."
@@ -22,7 +22,7 @@ const fallbackPosts = [
   {
     "title": "Urban Planning Basics",
     "category": "Urban Planning",
-    "url": "./Urban/urban_planning.html",
+    "url": "./posts/html/urban/j-urban_planning.html",
     "date": "2024-01-05",
     "tags": ["planning", "urban", "development"],
     "excerpt": "Introduction to fundamental urban planning principles."
@@ -30,7 +30,7 @@ const fallbackPosts = [
   {
     "title": "Data Analysis for Cities",
     "category": "Urban Analytics",
-    "url": "./Urban/urban_analytics.html",
+    "url": "./posts/html/urban/j-urban_analytics.html",
     "date": "2023-12-28",
     "tags": ["analytics", "data", "urban"],
     "excerpt": "How to use data analytics to understand urban patterns."
@@ -38,7 +38,7 @@ const fallbackPosts = [
   {
     "title": "Policy Framework Overview",
     "category": "Urban Policy",
-    "url": "./Urban/urban_policy.html",
+    "url": "./posts/html/urban/j-urban_policy.html",
     "date": "2023-12-20",
     "tags": ["policy", "governance", "urban"],
     "excerpt": "Understanding urban policy frameworks and their implementation."

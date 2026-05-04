@@ -5,6 +5,187 @@
   <meta charset="utf-8">
   <title>Blog - All Posts</title>
   <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Sleek Blog Styles */
+    body {
+      background-color: #f4f7f6;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: #333;
+    }
+    .blog-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      max-width: 1100px;
+    margin: 0;
+    padding: 0;
+    }
+    .blog-main {
+      flex: 1 1 65%;
+      background: #fff;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+    }
+    .blog-main h1 {
+      margin-top: 0;
+      font-weight: 700;
+      color: #2c3e50;
+      font-size: 2.5rem;
+    }
+    .blog-main p {
+      color: #718096;
+    }
+    .blog-sidebar {
+      flex: 1 1 30%;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      height: max-content;
+    }
+    .blog-sidebar h3 {
+      margin-top: 0;
+      color: #2c3e50;
+      border-bottom: 2px solid #edf2f7;
+      padding-bottom: 0.75rem;
+      font-weight: 600;
+    }
+    .category-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .category-list li {
+      margin-bottom: 0.85rem;
+    }
+    .category-list a {
+      color: #4a5568;
+      text-decoration: none;
+      transition: color 0.2s ease;
+      font-weight: 500;
+    }
+    .category-list a:hover {
+      color: #3182ce;
+    }
+    .subcategory {
+      padding-left: 1.5rem;
+      font-size: 0.9em;
+      position: relative;
+    }
+    .subcategory::before {
+      content: '↳';
+      position: absolute;
+      left: 0.25rem;
+      color: #cbd5e0;
+    }
+    .view-toggle {
+      margin: 2rem 0;
+      display: flex;
+      gap: 0.75rem;
+    }
+    .view-btn {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #718096;
+      font-weight: 500;
+    }
+    .view-btn:hover {
+      background: #f7fafc;
+      color: #2d3748;
+      border-color: #cbd5e0;
+    }
+    .view-btn.active {
+      background: #3182ce;
+      color: #fff;
+      border-color: #3182ce;
+      box-shadow: 0 2px 4px rgba(49, 130, 206, 0.2);
+    }
+    
+    /* Sleek Cards */
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .post-card, .post-item-list {
+      background: #fff;
+      border: 1px solid #edf2f7;
+      border-radius: 10px;
+      padding: 1.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .post-card:hover, .post-item-list:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+    .post-item-list {
+      margin-bottom: 1.5rem;
+    }
+    .post-card h3, .post-item-list h3 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      line-height: 1.4;
+    }
+    .post-card h3 a, .post-item-list h3 a {
+      color: #2d3748;
+      text-decoration: none;
+    }
+    .post-card h3 a:hover, .post-item-list h3 a:hover {
+      color: #3182ce;
+    }
+    .post-date {
+      color: #a0aec0;
+      font-size: 0.85rem;
+      display: block;
+      margin-bottom: 1rem;
+    }
+    .post-excerpt {
+      color: #4a5568;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .post-meta {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .post-category {
+      background: #ebf8ff;
+      color: #2b6cb0;
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .tag {
+      color: #718096;
+      font-size: 0.8rem;
+      margin-right: 0.5rem;
+    }
+    .tag::before {
+      content: '#';
+      color: #cbd5e0;
+    }
+    
+    /* Global overrides */
+    #main.content {
+      background-color: transparent;
+      padding: 0 2rem;
+      box-shadow: none;
+      max-width: 1200px;
+      margin: 50px 0; /* Aligns left instead of auto-centering */
+    }
+  </style>
 </head>
 <body>
   <div id="layout">
@@ -37,7 +218,7 @@
         <aside class="blog-sidebar">
           <h3>Categories</h3>
           <ul class="category-list">
-            <li><a href="./posts/html/administrivia/j-md_to_html.html">Administrivia</a></li>
+            <li><a href="./posts/html/learning/j-md_to_html.html">Administrivia</a></li>
             <li><a href="./posts/html/learning/j-how_to_read.html">Learning</a></li>
             <li><a href="#urban">Urban</a></li>
             <li class="subcategory"><a href="./posts/html/urban/j-urban_planning.html">Urban Planning</a></li>
