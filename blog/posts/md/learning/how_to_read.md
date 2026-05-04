@@ -1,5 +1,5 @@
 ---
-title: Document Center
+title: How to Read
 ---
 
 # How To Read (aka Strategies to reduce Grad/Adult Life Struggles)

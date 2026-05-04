@@ -1,4 +1,4 @@
-# md to html
+# Convert Markdown to HTML
 
 Published: 2024-01-15
 Tags: markdown, html, tools
