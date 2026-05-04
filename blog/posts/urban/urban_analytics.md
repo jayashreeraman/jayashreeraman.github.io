@@ -9,4 +9,4 @@ How to use data analytics to understand urban patterns.
 
 This is a placeholder post. Replace this content with your actual post content.
 
-[← Back to Blog](../../index.html)
+[← Back to Blog](../../../index.html)

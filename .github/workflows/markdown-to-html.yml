@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - 'blog/posts/**/*.md'
+      - 'blog/posts/md/**/*.md'
       - '.github/workflows/markdown-to-html.yml'
   workflow_dispatch:
 
@@ -36,11 +36,16 @@ jobs:
             try {
               const markdown = fs.readFileSync(mdFilePath, 'utf-8');
               const html = marked.parse(markdown);
-              const dir = path.dirname(mdFilePath);
+              const relativePath = path.relative('blog/posts/md', mdFilePath);
+              const htmlDir = path.join('blog/posts/html', path.dirname(relativePath));
               const filename = path.basename(mdFilePath, '.md');
-              const htmlFilePath = path.join(dir, `j-${filename}.html`);
+              const htmlFilePath = path.join(htmlDir, `j-${filename}.html`);
               
-              const template = '<!DOCTYPE html>\n<html>\n<head>\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <meta charset="utf-8">\n  <title>Blog Post</title>\n  <link rel="stylesheet" href="../../../css/styles.css">\n</head>\n<body>\n  <div id="layout">\n    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>\n    <nav id="menu">\n      <ul>\n        <li class="heading"><span>Main</span></li>\n        <ul>\n          <li><a href="../../../index.html">Home</a></li>\n          <li><a href="../../index.html">Blog</a></li>\n        </ul>\n      </ul>\n    </nav>\n    <article id="main" class="content">\n      ' + html + '\n      <p><a href="../../index.html">← Back to Blog</a></p>\n    </article>\n  </div>\n  <script src="../../../js/menu.js"><\/script>\n</body>\n</html>';
+              if (!fs.existsSync(htmlDir)) {
+                fs.mkdirSync(htmlDir, { recursive: true });
+              }
+              
+              const template = '<!DOCTYPE html>\n<html>\n<head>\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <meta charset="utf-8">\n  <title>Blog Post</title>\n  <link rel="stylesheet" href="../../../../css/styles.css">\n</head>\n<body>\n  <div id="layout">\n    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>\n    <nav id="menu">\n      <ul>\n        <li class="heading"><span>Main</span></li>\n        <ul>\n          <li><a href="../../../../index.html">Home</a></li>\n          <li><a href="../../../index.html">Blog</a></li>\n        </ul>\n      </ul>\n    </nav>\n    <article id="main" class="content">\n      ' + html + '\n      <p><a href="../../../index.html">← Back to Blog</a></p>\n    </article>\n  </div>\n  <script src="../../../../js/menu.js"><\/script>\n</body>\n</html>';
               
               fs.writeFileSync(htmlFilePath, template);
               console.log(`✓ Converted ${mdFilePath} → ${htmlFilePath}`);
@@ -67,20 +72,20 @@ jobs:
           }
 
           console.log('Starting markdown to HTML conversion...');
-          processDirectory('blog/posts');
+          processDirectory('blog/posts/md');
           console.log('Conversion complete!');
           EOF
 
       - name: Verify HTML files created
         run: |
           echo "## HTML Files Generated:" >> $GITHUB_STEP_SUMMARY
-          if find blog/posts -name "j-*.html" -type f | grep -q .; then
+          if find blog/posts/html -name "j-*.html" -type f | grep -q .; then
             echo "✓ HTML files found:" >> $GITHUB_STEP_SUMMARY
-            find blog/posts -name "j-*.html" -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
+            find blog/posts/html -name "j-*.html" -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
           else
             echo "✗ No HTML files generated" >> $GITHUB_STEP_SUMMARY
-            echo "Debug: Files in blog/posts:" >> $GITHUB_STEP_SUMMARY
-            find blog/posts -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
+            echo "Debug: Files in blog/posts/html:" >> $GITHUB_STEP_SUMMARY
+            find blog/posts/html -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
           fi
 
       - name: Commit and push converted files
@@ -89,16 +94,11 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add blog/posts/**/j-*.html || true
+          git add blog/posts/html/**/j-*.html || true
           if git diff --quiet --cached; then
             echo "ℹ No HTML changes to commit" >> $GITHUB_STEP_SUMMARY
           else
             git commit -m "Convert markdown files to HTML [skip ci]"
             git push origin master
             echo "✓ Successfully pushed converted HTML files" >> $GITHUB_STEP_SUMMARY
-          fi
-            echo "✓ HTML files found:" >> $GITHUB_STEP_SUMMARY
-            find blog/posts -name "j-*.html" -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
-          else
-            echo "✗ No HTML files generated" >> $GITHUB_STEP_SUMMARY
           fi

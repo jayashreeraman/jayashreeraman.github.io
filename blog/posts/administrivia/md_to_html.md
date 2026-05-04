@@ -9,4 +9,4 @@ Integrating markdown with my HTML website was the magic trick I needed, and Joaq
 Highly recommend for people who tend to get overwhelmed by the tiny details but want to look at the big picture.
 
 
-[← Back to Blog](../../index.html)
+[← Back to Blog](../../../index.html)

@@ -9,4 +9,4 @@ Understanding urban policy frameworks and their implementation.
 
 This is a placeholder post. Replace this content with your actual post content.
 
-[← Back to Blog](../../index.html)
+[← Back to Blog](../../../index.html)
