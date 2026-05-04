@@ -41,34 +41,7 @@ jobs:
               const dir = path.dirname(mdFilePath);
               const filename = path.basename(mdFilePath, '.md');
               const htmlFilePath = path.join(dir, `j-${filename}.html`);
-              const template = `<!DOCTYPE html>
-<html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="utf-8">
-  <title>Blog Post</title>
-  <link rel="stylesheet" href="../../../css/styles.css">
-</head>
-<body>
-  <div id="layout">
-    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>
-    <nav id="menu">
-      <ul>
-        <li class="heading"><span>Main</span></li>
-        <ul>
-          <li><a href="../../../index.html">Home</a></li>
-          <li><a href="../../index.html">Blog</a></li>
-        </ul>
-      </ul>
-    </nav>
-    <article id="main" class="content">
-      ${html}
-      <p><a href="../../index.html">← Back to Blog</a></p>
-    </article>
-  </div>
-  <script src="../../../js/menu.js"></script>
-</body>
-</html>`;
+              const template = '<!DOCTYPE html>\n<html>\n<head>\n  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n  <meta charset="utf-8">\n  <title>Blog Post</title>\n  <link rel="stylesheet" href="../../../css/styles.css">\n</head>\n<body>\n  <div id="layout">\n    <a href="#menu" id="menuLink" class="menu-link"><span></span></a>\n    <nav id="menu">\n      <ul>\n        <li class="heading"><span>Main</span></li>\n        <ul>\n          <li><a href="../../../index.html">Home</a></li>\n          <li><a href="../../index.html">Blog</a></li>\n        </ul>\n      </ul>\n    </nav>\n    <article id="main" class="content">\n      ' + html + '\n      <p><a href="../../index.html">← Back to Blog</a></p>\n    </article>\n  </div>\n  <script src="../../../js/menu.js"><\/script>\n</body>\n</html>';
               fs.writeFileSync(htmlFilePath, template);
               console.log(`✓ Converted ${mdFilePath} → ${htmlFilePath}`);
             }
@@ -90,6 +63,33 @@ jobs:
             console.log('Starting markdown to HTML conversion...');
             processDirectory('blog/posts');
             console.log('Conversion complete!');
+            SCRIPT
+          fi
+
+      - name: Verify HTML files created
+        run: |
+          echo "## HTML Files Generated:" >> $GITHUB_STEP_SUMMARY
+          if find blog/posts -name "j-*.html" -type f | grep -q .; then
+            echo "✓ HTML files found:" >> $GITHUB_STEP_SUMMARY
+            find blog/posts -name "j-*.html" -type f | sed 's/^/  - /' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✗ No HTML files generated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Commit and push converted files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add blog/posts/**/j-*.html || true
+          if git diff --quiet --cached; then
+            echo "ℹ No HTML changes to commit" >> $GITHUB_STEP_SUMMARY
+          else
+            git commit -m "Convert markdown files to HTML [skip ci]"
+            git push origin main
+            echo "✓ Successfully pushed converted HTML files" >> $GITHUB_STEP_SUMMARY
+          fi
             SCRIPT
           fi
 
