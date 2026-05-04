@@ -23,14 +23,14 @@ jobs:
           node-version: '18'
 
       - name: Install markdown packages
-        run: npm install -g marked
+        run: npm install marked
 
       - name: Convert markdown files to HTML
         run: |
           node << 'EOF'
+          const marked = require('marked');
           const fs = require('fs');
           const path = require('path');
-          const { marked } = require('marked');
 
           function convertMarkdownToHtml(mdFilePath) {
             try {
