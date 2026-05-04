@@ -50,7 +50,7 @@ The post will automatically appear on the blog homepage in both list and card vi
 
 ## Example: Adding a New Urban Policy Post
 
-1. Create `blog/Urban/new_policy_post.html`
+1. Create `blog/posts/md/urban/new_policy_post.md`
 2. Add to `posts.json`:
 ```json
 {
