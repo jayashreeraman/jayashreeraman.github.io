@@ -21,7 +21,7 @@
     padding: 0;
     }
     .blog-main {
-      flex: 1 1 65%;
+      flex: 1 1 100%;
       background: #fff;
       padding: 2.5rem;
       border-radius: 12px;
@@ -36,54 +36,41 @@
     .blog-main p {
       color: #718096;
     }
-    .blog-sidebar {
-      flex: 1 1 30%;
-      background: #fff;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-      height: max-content;
-      position: sticky; /* Prevents the fixed overlapping behavior */
-      top: 2rem;
-      width: auto; /* Overrides the hardcoded 250px width */
+    /* Filter & Controls Styles */
+    .controls-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      margin: 2rem 0;
+      gap: 1rem;
     }
-    .blog-sidebar h3 {
-      margin-top: 0;
-      color: #2c3e50;
-      border-bottom: 2px solid #edf2f7;
-      padding-bottom: 0.75rem;
-      font-weight: 600;
+    .filter-controls {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      flex: 1;
     }
-    .category-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .category-list li {
-      margin-bottom: 0.85rem;
-    }
-    .category-list a {
+    .search-input, .category-select {
+      padding: 0.6rem 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.95rem;
       color: #4a5568;
-      text-decoration: none;
-      transition: color 0.2s ease;
-      font-weight: 500;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      background: #fff;
     }
-    .category-list a:hover {
-      color: #3182ce;
+    .search-input {
+      flex: 1;
+      min-width: 200px;
+      max-width: 300px;
     }
-    .subcategory {
-      padding-left: 1.5rem;
-      font-size: 0.9em;
-      position: relative;
-    }
-    .subcategory::before {
-      content: '↳';
-      position: absolute;
-      left: 0.25rem;
-      color: #cbd5e0;
+    .search-input:focus, .category-select:focus {
+      border-color: #3182ce;
+      box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
     }
     .view-toggle {
-      margin: 2rem 0;
       display: flex;
       gap: 0.75rem;
     }
@@ -173,11 +160,71 @@
     .tag {
       color: #718096;
       font-size: 0.8rem;
-      margin-right: 0.5rem;
+      margin-right: 0.25rem;
+      cursor: pointer;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      transition: color 0.2s ease, background-color 0.2s ease;
+    }
+    .tag:hover {
+      color: #3182ce;
+      background-color: #ebf8ff;
     }
     .tag::before {
       content: '#';
       color: #cbd5e0;
+    }
+    .active-filters {
+      margin-bottom: 1rem;
+    }
+    .clear-tag-btn {
+      background: #e2e8f0;
+      border: none;
+      border-radius: 20px;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.85rem;
+      color: #4a5568;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+    .clear-tag-btn:hover {
+      background: #cbd5e0;
+    }
+    
+    /* Pagination Styles */
+    .pagination-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 3rem;
+    }
+    .page-btn {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.5rem 0.8rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: #4a5568;
+      font-weight: 500;
+    }
+    .page-btn:hover:not(:disabled) {
+      background: #f7fafc;
+      color: #2d3748;
+      border-color: #cbd5e0;
+    }
+    .page-btn.active {
+      background: #3182ce;
+      color: #fff;
+      border-color: #3182ce;
+      box-shadow: 0 2px 4px rgba(49, 130, 206, 0.2);
+    }
+    .page-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: #edf2f7;
     }
     
     /* Global overrides */
@@ -187,14 +234,6 @@
       box-shadow: none;
       max-width: 1200px;
       margin: 50px 0; /* Aligns left instead of auto-centering */
-    }
-
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      .blog-sidebar {
-        position: static;
-        width: 100%;
-      }
     }
   </style>
 </head>
@@ -218,26 +257,23 @@
           <h1>Blog</h1>
           <p>Welcome to my blog. Browse posts by category below.</p>
 
-          <div class="view-toggle">
-            <button id="listViewBtn" class="view-btn active" data-view="list">📋 List View</button>
-            <button id="cardViewBtn" class="view-btn" data-view="card">🗂️ Card View</button>
+          <div class="controls-container">
+            <div class="filter-controls">
+              <input type="text" id="searchInput" placeholder="Search posts..." class="search-input">
+              <select id="categoryFilter" class="category-select">
+                <option value="All">All Categories</option>
+              </select>
+            </div>
+            <div class="view-toggle">
+              <button id="listViewBtn" class="view-btn active" data-view="list">📋 List View</button>
+              <button id="cardViewBtn" class="view-btn" data-view="card">🗂️ Card View</button>
+            </div>
           </div>
 
+          <div id="activeFilters" class="active-filters"></div>
           <div id="postsContainer" class="posts-list"></div>
+          <div id="paginationContainer" class="pagination-container"></div>
         </div>
-
-        <aside class="blog-sidebar">
-          <h3>Categories</h3>
-          <ul class="category-list">
-            <li><a href="#learning">Learning</a></li>
-            <li class="subcategory"><a href="./posts/html/learning/j-how_to_read.html">how to read</a></li>
-            <li class="subcategory"><a href="./posts/html/learning/j-md_to_html.html">md to html</a></li>
-            <li><a href="#urban">Urban</a></li>
-            <li class="subcategory"><a href="./posts/html/urban/j-urban_planning.html">Urban Planning</a></li>
-            <li class="subcategory"><a href="./posts/html/urban/j-urban_analytics.html">Urban Analytics</a></li>
-            <li class="subcategory"><a href="./posts/html/urban/j-urban_policy.html">Urban Policy</a></li>
-          </ul>
-        </aside>
       </div>
     </article>
   </div>

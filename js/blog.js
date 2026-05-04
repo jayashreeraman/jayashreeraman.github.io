@@ -1,5 +1,10 @@
 let currentView = 'list';
 let posts = [];
+let currentCategory = 'All';
+let searchQuery = '';
+let currentTag = null;
+let currentPage = 1;
+const postsPerPage = 6;
 
 // Fallback post data (in case JSON file fails to load)
 const fallbackPosts = [
@@ -59,7 +64,23 @@ async function loadPosts() {
     console.warn('Could not load posts.json, using fallback data:', error);
     posts = fallbackPosts;
   }
+  populateCategories();
   renderPosts();
+}
+
+// Dynamically extract and populate categories from the loaded data
+function populateCategories() {
+  const select = document.getElementById('categoryFilter');
+  if (!select) return;
+  
+  const uniqueCategories = [...new Set(posts.map(post => post.category))].sort();
+  uniqueCategories.forEach(category => {
+    const option = document.createElement('option');
+    option.value = category;
+    option.textContent = category;
+    if (category === currentCategory) option.selected = true;
+    select.appendChild(option);
+  });
 }
 
 // Render posts based on current view
@@ -67,19 +88,90 @@ function renderPosts() {
   const container = document.getElementById('postsContainer');
   container.innerHTML = '';
   
-  if (currentView === 'list') {
-    renderListView();
-  } else {
-    renderCardView();
+  // Filter posts by category and search query
+  const filteredPosts = posts.filter(post => {
+    const matchesCategory = currentCategory === 'All' || post.category === currentCategory;
+    const searchLower = searchQuery.toLowerCase();
+    const matchesSearch = searchQuery === '' || 
+                          post.title.toLowerCase().includes(searchLower) || 
+                          post.excerpt.toLowerCase().includes(searchLower) ||
+                          post.tags.some(tag => tag.toLowerCase().includes(searchLower));
+    const matchesTag = currentTag === null || post.tags.includes(currentTag);
+    return matchesCategory && matchesSearch && matchesTag;
+  });
+  
+  // Render the active tag filter badge
+  const activeFiltersContainer = document.getElementById('activeFilters');
+  if (activeFiltersContainer) {
+    if (currentTag) {
+      activeFiltersContainer.innerHTML = `<button class="clear-tag-btn" onclick="clearTagFilter()">Filtering by tag: #${currentTag} &times;</button>`;
+    } else {
+      activeFiltersContainer.innerHTML = '';
+    }
   }
+
+  if (filteredPosts.length === 0) {
+    container.innerHTML = '<p style="color: #718096; padding: 2rem 0;">No posts found matching your search criteria.</p>';
+    container.className = '';
+    document.getElementById('paginationContainer').innerHTML = ''; // clear pagination
+    return;
+  }
+
+  // Pagination logic
+  const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+  if (currentPage > totalPages) currentPage = totalPages;
+  
+  const startIndex = (currentPage - 1) * postsPerPage;
+  const paginatedPosts = filteredPosts.slice(startIndex, startIndex + postsPerPage);
+
+  if (currentView === 'list') {
+    renderListView(paginatedPosts);
+  } else {
+    renderCardView(paginatedPosts);
+  }
+  
+  renderPagination(totalPages);
+}
+
+// Render pagination controls
+function renderPagination(totalPages) {
+  const container = document.getElementById('paginationContainer');
+  container.innerHTML = '';
+
+  if (totalPages <= 1) return; // Hide pagination if only 1 page
+
+  // Prev button
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'page-btn';
+  prevBtn.innerHTML = '&laquo; Prev';
+  prevBtn.disabled = currentPage === 1;
+  prevBtn.onclick = () => goToPage(currentPage - 1);
+  container.appendChild(prevBtn);
+
+  // Page numbers
+  for (let i = 1; i <= totalPages; i++) {
+    const pageBtn = document.createElement('button');
+    pageBtn.className = `page-btn ${i === currentPage ? 'active' : ''}`;
+    pageBtn.textContent = i;
+    pageBtn.onclick = () => goToPage(i);
+    container.appendChild(pageBtn);
+  }
+
+  // Next button
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'page-btn';
+  nextBtn.innerHTML = 'Next &raquo;';
+  nextBtn.disabled = currentPage === totalPages;
+  nextBtn.onclick = () => goToPage(currentPage + 1);
+  container.appendChild(nextBtn);
 }
 
 // List view rendering
-function renderListView() {
+function renderListView(postsToRender) {
   const container = document.getElementById('postsContainer');
   container.className = 'posts-list';
   
-  posts.forEach(post => {
+  postsToRender.forEach(post => {
     const item = document.createElement('div');
     item.className = 'post-item-list';
     item.innerHTML = `
@@ -91,7 +183,7 @@ function renderListView() {
       <div class="post-meta">
         <span class="post-category">${post.category}</span>
         <div class="post-tags">
-          ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+          ${post.tags.map(tag => `<span class="tag" onclick="filterByTag('${tag}')">${tag}</span>`).join('')}
         </div>
       </div>
     `;
@@ -100,11 +192,11 @@ function renderListView() {
 }
 
 // Card view rendering
-function renderCardView() {
+function renderCardView(postsToRender) {
   const container = document.getElementById('postsContainer');
   container.className = 'posts-grid';
   
-  posts.forEach(post => {
+  postsToRender.forEach(post => {
     const card = document.createElement('div');
     card.className = 'post-card';
     card.innerHTML = `
@@ -115,7 +207,7 @@ function renderCardView() {
         <div class="post-meta">
           <span class="post-category">${post.category}</span>
           <div class="post-tags">
-            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            ${post.tags.map(tag => `<span class="tag" onclick="filterByTag('${tag}')">${tag}</span>`).join('')}
           </div>
         </div>
       </div>
@@ -139,5 +231,80 @@ document.getElementById('cardViewBtn').addEventListener('click', () => {
   renderPosts();
 });
 
+// Update URL with current filters
+function updateURL() {
+  const url = new URL(window.location);
+  
+  if (currentCategory !== 'All') url.searchParams.set('category', currentCategory);
+  else url.searchParams.delete('category');
+  
+  if (searchQuery) url.searchParams.set('search', searchQuery);
+  else url.searchParams.delete('search');
+  
+  if (currentTag) url.searchParams.set('tag', currentTag);
+  else url.searchParams.delete('tag');
+  
+  if (currentPage > 1) url.searchParams.set('page', currentPage);
+  else url.searchParams.delete('page');
+  
+  window.history.replaceState({}, '', url);
+}
+
+// Navigation logic for pagination
+window.goToPage = function(page) {
+  currentPage = page;
+  updateURL();
+  renderPosts();
+  document.querySelector('.controls-container').scrollIntoView({ behavior: 'smooth' });
+};
+
+// Tag filtering functions (attached to window so inline onclick can reach them)
+window.filterByTag = function(tag) {
+  currentTag = tag;
+  currentPage = 1; // reset to first page on filter
+  updateURL();
+  renderPosts();
+};
+
+window.clearTagFilter = function() {
+  currentTag = null;
+  currentPage = 1; // reset to first page on filter
+  updateURL();
+  renderPosts();
+};
+
 // Load posts on page load
-document.addEventListener('DOMContentLoaded', loadPosts);
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize filters from URL
+  const params = new URLSearchParams(window.location.search);
+  if (params.has('category')) currentCategory = params.get('category');
+  if (params.has('search')) {
+    searchQuery = params.get('search');
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) searchInput.value = searchQuery;
+  }
+  if (params.has('tag')) currentTag = params.get('tag');
+  if (params.has('page')) currentPage = parseInt(params.get('page')) || 1;
+
+  loadPosts();
+
+  // Filter Event Listeners
+  const searchInput = document.getElementById('searchInput');
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value;
+      currentPage = 1; // reset on search
+      updateURL();
+      renderPosts();
+    });
+  }
+  const categoryFilter = document.getElementById('categoryFilter');
+  if (categoryFilter) {
+    categoryFilter.addEventListener('change', (e) => {
+      currentCategory = e.target.value;
+      currentPage = 1; // reset on filter
+      updateURL();
+      renderPosts();
+    });
+  }
+});
