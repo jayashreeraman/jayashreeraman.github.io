@@ -3,7 +3,7 @@ name: Convert Markdown to HTML
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'blog/posts/**/*.md'
       - '.github/workflows/markdown-to-html.yml'
@@ -94,7 +94,7 @@ jobs:
             echo "ℹ No HTML changes to commit" >> $GITHUB_STEP_SUMMARY
           else
             git commit -m "Convert markdown files to HTML [skip ci]"
-            git push origin HEAD:main || git push origin HEAD:master
+            git push origin master
             echo "✓ Successfully pushed converted HTML files" >> $GITHUB_STEP_SUMMARY
           fi
             echo "✓ HTML files found:" >> $GITHUB_STEP_SUMMARY
