@@ -5,8 +5,8 @@ let posts = [];
 const fallbackPosts = [
   {
     "title": "md to html",
-    "category": "Administrivia",
-    "url": "./posts/html/administrivia/j-md_to_html.html",
+    "category": "Learning",
+    "url": "./posts/html/learning/j-md_to_html.html",
     "date": "2024-01-15",
     "tags": ["markdown", "html", "tools"],
     "excerpt": "A guide on converting markdown files to HTML format."

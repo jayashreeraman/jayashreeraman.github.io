@@ -43,6 +43,9 @@
       border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.03);
       height: max-content;
+      position: sticky; /* Prevents the fixed overlapping behavior */
+      top: 2rem;
+      width: auto; /* Overrides the hardcoded 250px width */
     }
     .blog-sidebar h3 {
       margin-top: 0;
@@ -185,6 +188,14 @@
       max-width: 1200px;
       margin: 50px 0; /* Aligns left instead of auto-centering */
     }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .blog-sidebar {
+        position: static;
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -218,8 +229,9 @@
         <aside class="blog-sidebar">
           <h3>Categories</h3>
           <ul class="category-list">
-            <li><a href="./posts/html/learning/j-md_to_html.html">Administrivia</a></li>
-            <li><a href="./posts/html/learning/j-how_to_read.html">Learning</a></li>
+            <li><a href="#learning">Learning</a></li>
+            <li class="subcategory"><a href="./posts/html/learning/j-how_to_read.html">how to read</a></li>
+            <li class="subcategory"><a href="./posts/html/learning/j-md_to_html.html">md to html</a></li>
             <li><a href="#urban">Urban</a></li>
             <li class="subcategory"><a href="./posts/html/urban/j-urban_planning.html">Urban Planning</a></li>
             <li class="subcategory"><a href="./posts/html/urban/j-urban_analytics.html">Urban Analytics</a></li>
